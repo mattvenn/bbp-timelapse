@@ -35,6 +35,7 @@ def make_timelapse():
 #this code from the unit test: 
 #http://code.google.com/p/gdata-python-client/source/browse/tests/gdata_tests/youtube/service_test.py
 def upload_timelapse(date_str):
+    #login
     client = gdata.youtube.service.YouTubeService()
     client.email = youtube_keys.email
     client.password = youtube_keys.password
@@ -42,10 +43,12 @@ def upload_timelapse(date_str):
     client.developer_key = youtube_keys.dev_key
     client.client_id = YOUTUBE_TEST_CLIENT_ID
     client.ProgrammaticLogin()
-    exit(1)
+
+    #titles
     test_video_title = 'workshop timelapse ' + date_str
     test_video_description = "bbp workshop timelapse at %d fps\nhttp://thebristolbikeproject.org" % fps
 
+    #category,tags etc
     my_media_group = gdata.media.Group(
         title = gdata.media.Title(text=test_video_title),
         description = gdata.media.Description(description_type='plain',
