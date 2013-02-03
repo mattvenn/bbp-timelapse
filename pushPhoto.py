@@ -3,6 +3,7 @@ import os
 
 path = "/home/bristolbikeproject/timelapse/"
 imagepath = path + "images/"
+
 def get_newest():
 	filelist = os.listdir(imagepath)
 	newest = max(filelist, key=lambda x: os.stat(imagepath+x).st_mtime)
