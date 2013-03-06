@@ -19,9 +19,9 @@ def mk_index(fromfile):
 	f.close()
 
 if __name__=="__main__":  
-	newest = get_newest()
-	#the photo
-	scp(imagepath + newest,"latest.jpg")
-	#the index
-	mk_index(newest)
-	scp(path + "index.html", "index.html")
+    newest = get_newest()
+    #the photo
+    scp(imagepath + newest,"latest.jpg")
+    #the index
+    mk_index(newest)
+    scp(path + "index.html", "index.html")
