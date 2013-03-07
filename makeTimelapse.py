@@ -1,5 +1,6 @@
 #!/home/bristolbikeproject/.virtualenvs/timelapse/bin/python
 import os
+import pdb;
 import getpass
 import gdata.youtube
 import gdata.youtube.service
@@ -10,7 +11,7 @@ imagepath = path + "images/"
 YOUTUBE_TEST_CLIENT_ID = 'timelapse'
 video_file = 'timelapse.avi'
 file_list = "files.txt"
-fps = 15
+fps = 10
 
 def make_filelist():
     filelist = os.listdir(imagepath)
@@ -65,11 +66,12 @@ def upload_timelapse(date_str):
     print "uploading file:", test_video_title
     video_entry = gdata.youtube.YouTubeVideoEntry(media=my_media_group) #, geo=where)
     new_entry = client.InsertVideoEntry(video_entry, video_file)
-
+    
     # check upload status also
     upload_status = client.CheckUploadStatus(new_entry)
-    print "status:", upload_status[0] 
-    return upload_status[0]
+    link = new_entry.link[0].href
+    print "status:", upload_status[0], " link: ", link
+    return (upload_status[0],link)
 
     """
     # test to delete the entry
@@ -100,9 +102,13 @@ if __name__=="__main__":
     make_timelapse()
 
     #upload to youtube
-    status = upload_timelapse(date_str)
+    (status,link) = upload_timelapse(date_str)
 
     #if get a good status from youtube remove the files
     if status == 'processing':
         remove_files()
+        f = open(path + "latest_vid", 'w')
+        f.write(link)
+        f.close()
+
 
