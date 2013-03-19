@@ -37,6 +37,9 @@ def mk_youtube():
     print "using %s as embed" % embed
     f.write("""
 <html>
+<head>
+<style> html, body {margin:0;padding:0;} </style>
+</head>
 <body>
 <iframe width="600" height="450" src="http://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe>
 </body>
