@@ -21,7 +21,7 @@ def make_filelist():
     to_format = "%A %H:%M"
     from_str = datetime.datetime.strptime(sorted_filelist[0], from_format).strftime(to_format)    
     to_str = datetime.datetime.strptime(sorted_filelist[-1], from_format).strftime(to_format)    
-    title = from_str, 'to', to_str
+    title = from_str + ' to ' + to_str
     f = open(file_list,'w')
     for file in sorted_filelist:
         f.write(imagepath + file + "\n")
@@ -98,7 +98,6 @@ def remove_files():
 if __name__=="__main__":  
     #make the filelist
     (title, num_files) = make_filelist()
-    exit(1)
     if num_files < 6 * 60: #6 hours of images
         print "not enough files: %d" % num_files
         exit(1)
