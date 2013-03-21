@@ -1,5 +1,6 @@
 #!/home/bristolbikeproject/.virtualenvs/timelapse/bin/python
 import os
+import datetime
 import pdb;
 import getpass
 import gdata.youtube
@@ -16,13 +17,16 @@ fps = 10
 def make_filelist():
     filelist = os.listdir(imagepath)
     sorted_filelist = sorted(filelist, key=lambda x: os.stat(imagepath+x).st_mtime)
-    date_str = sorted_filelist[0] + " to " + sorted_filelist[-1]
-    date_str = date_str.replace('.jpg','')
+    from_format = "%y-%m-%d-%H-%M-%S.jpg"
+    to_format = "%A %H:%M"
+    from_str = datetime.datetime.strptime(sorted_filelist[0], from_format).strftime(to_format)    
+    to_str = datetime.datetime.strptime(sorted_filelist[-1], from_format).strftime(to_format)    
+    title = from_str, 'to', to_str
     f = open(file_list,'w')
     for file in sorted_filelist:
         f.write(imagepath + file + "\n")
     f.close()
-    return (date_str, len(sorted_filelist))
+    return (title, len(sorted_filelist))
 
 def make_timelapse():
     #remove old file
@@ -35,7 +39,7 @@ def make_timelapse():
 
 #this code from the unit test: 
 #http://code.google.com/p/gdata-python-client/source/browse/tests/gdata_tests/youtube/service_test.py
-def upload_timelapse(date_str):
+def upload_timelapse(title):
     #login
     client = gdata.youtube.service.YouTubeService()
     client.email = youtube_keys.email
@@ -46,7 +50,7 @@ def upload_timelapse(date_str):
     client.ProgrammaticLogin()
 
     #titles
-    test_video_title = 'workshop timelapse ' + date_str
+    test_video_title = 'workshop timelapse ' + title
     test_video_description = "bbp workshop timelapse at %d fps\nhttp://thebristolbikeproject.org" % fps
 
     #category,tags etc
@@ -93,7 +97,8 @@ def remove_files():
 
 if __name__=="__main__":  
     #make the filelist
-    (date_str, num_files) = make_filelist()
+    (title, num_files) = make_filelist()
+    exit(1)
     if num_files < 6 * 60: #6 hours of images
         print "not enough files: %d" % num_files
         exit(1)
@@ -102,7 +107,7 @@ if __name__=="__main__":
     make_timelapse()
 
     #upload to youtube
-    (status,link) = upload_timelapse(date_str)
+    (status,link) = upload_timelapse(title)
 
     #if get a good status from youtube remove the files
     if status == 'processing':
