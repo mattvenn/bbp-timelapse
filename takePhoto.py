@@ -23,7 +23,7 @@ def add_text_to_image(filename):
 
 def capture_image():
     now = datetime.datetime.now()
-    filename = now.strftime("%Y-%m-%d-%H-%M-%S")
+    filename = now.strftime("%y-%m-%d-%H-%M-%S")
     output = image_path + filename + '.jpg'
     time=25 # 1/20s
     shootmode=1 #time priority
