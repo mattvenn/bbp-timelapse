@@ -25,17 +25,15 @@ def capture_image():
     now = datetime.datetime.now()
     filename = now.strftime("%y-%m-%d-%H-%M-%S")
     output = image_path + filename + '.jpg'
-    time=15 #trying longer exposure times
-    #25 # 1/20s
-    shootmode=1 #time priority
-    command = """gphoto2 --set-config /main/capturesettings/shootingmode=%d \
---set-config /main/capturesettings/shutterspeed=%d \
---set-config /main/capturesettings/focusingpoint=0 \
---set-config /main/capturesettings/afdistance=0 \
+    #set time as a real value in seconds
+    time="0.5"
+    command = """gphoto2 \
+--set-config-value /main/capturesettings/shootingmode=TV \
+--set-config-value /main/capturesettings/shutterspeed=%s \
 --capture-image-and-download \
 --quiet \
 --filename %s
-    """ % (shootmode,time,output)
+    """ % (time,output)
 
     status = os.system(command)  
     return (status,output)
