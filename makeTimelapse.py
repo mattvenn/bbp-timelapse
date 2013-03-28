@@ -1,4 +1,4 @@
-#!/home/bristolbikeproject/.virtualenvs/timelapse/bin/python
+#!/home/matt/.virtualenvs/timelapse/bin/python
 import os
 import datetime
 import pdb;
@@ -7,7 +7,7 @@ import gdata.youtube
 import gdata.youtube.service
 import youtube_keys
 
-path = "/home/bristolbikeproject/timelapse/"
+path = "/home/matt/timelapse/"
 imagepath = path + "images/"
 YOUTUBE_TEST_CLIENT_ID = 'timelapse'
 video_file = 'timelapse.avi'
@@ -50,7 +50,7 @@ def upload_timelapse(title):
     client.ProgrammaticLogin()
 
     #titles
-    test_video_title = 'workshop timelapse ' + title
+    test_video_title = title
     test_video_description = "bbp workshop timelapse at %d fps\nhttp://thebristolbikeproject.org" % fps
 
     #category,tags etc

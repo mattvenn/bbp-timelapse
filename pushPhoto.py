@@ -3,7 +3,7 @@ import os
 import Image
 import re
 
-path = "/home/bristolbikeproject/timelapse/"
+path = "/home/matt/timelapse/"
 imagepath = path + "images/"
 
 def get_newest():

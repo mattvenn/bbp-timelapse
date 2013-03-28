@@ -7,7 +7,7 @@ import PIL
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
-path = "/home/bristolbikeproject/timelapse/"
+path = "/home/matt/timelapse/"
 image_path = path + "images/"
 state = "state"
 
