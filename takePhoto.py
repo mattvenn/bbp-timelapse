@@ -17,7 +17,7 @@ def add_text_to_image(filename):
     text = now.strftime("%H:%M %A")
     font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf",100)
     draw = ImageDraw.Draw(img)
-    draw.rectangle([0,0,750,150],fill=(0,0,0))
+    draw.rectangle([0,0,800,150],fill=(0,0,0))
     draw.text((10, 10),text,(255,255,255),font=font)
     img.save(filename,"JPEG")
 
@@ -25,7 +25,8 @@ def capture_image():
     now = datetime.datetime.now()
     filename = now.strftime("%y-%m-%d-%H-%M-%S")
     output = image_path + filename + '.jpg'
-    time=25 # 1/20s
+    time=15 #trying longer exposure times
+    #25 # 1/20s
     shootmode=1 #time priority
     command = """gphoto2 --set-config /main/capturesettings/shootingmode=%d \
 --set-config /main/capturesettings/shutterspeed=%d \
